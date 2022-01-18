@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import SpongeBobSquarePantsSource from '@/assets/images/SpongeBobSquarePants.jpg';
-import './login.scss';
+import './Login.scss';
 
 const Login = () => {
   return (

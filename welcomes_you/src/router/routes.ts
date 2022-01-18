@@ -1,5 +1,8 @@
-import Login from '@/views/Login/Login';
+import App from '@/App';
+import Login from '@/Login';
 import Question from '@/views/Question/Question';
+import Interview from '@/views/Question/Interview/Interview';
+import WrittenExamination from '@/views/Question/WrittenExamination/WrittenExamination';
 
 const routes = [
   {
@@ -7,8 +10,24 @@ const routes = [
     Component: Login,
   },
   {
-    path: '/question',
-    Component: Question,
+    path: '/app',
+    Component: App,
+    children: [
+      {
+        path: '/question',
+        Component: Question,
+        children: [
+          {
+            path: '/interview',
+            Component: Interview,
+          },
+          {
+            path: '/writtenExamination',
+            Component: WrittenExamination,
+          },
+        ],
+      },
+    ],
   },
 ];
 
