@@ -1,15 +1,21 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { routes } from '@/router/index';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Routes>
-        <Route />
+        {routes?.map((route, index) => {
+          const Component = route.Component;
+          return (
+            <Route key={index} path={route.path} element={<Component />} />
+          );
+        })}
       </Routes>
     </div>
   );
-}
+};
 
 export default App;
