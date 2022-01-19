@@ -22,7 +22,6 @@
       display: block;
       box-shadow: 4px 4px 64px 4px rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
-      border: 1px solid rgba(#1890ff, 0.6);
     }
   }
   .form-container {
@@ -37,6 +36,7 @@
     .doorplate {
       .text {
         line-height: 1.2;
+        font-family: Arial;
         font-weight: bold;
         font-size: 24px;
         color: #fff;

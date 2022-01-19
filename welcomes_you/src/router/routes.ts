@@ -1,33 +1,18 @@
-import App from '@/App';
-import Login from '@/Login';
-import Question from '@/views/Question/Question';
-import Interview from '@/views/Question/Interview/Interview';
-import WrittenExamination from '@/views/Question/WrittenExamination/WrittenExamination';
+import App from '@/views/App/App';
+import Login from '@/views/Login/Login';
+import appRoutes from './appRoutes';
 
-const routes = [
+import { BaseRoutes } from '@/types/index.d';
+
+const routes: BaseRoutes = [
   {
-    path: '/login',
+    path: 'login',
     Component: Login,
   },
   {
-    path: '/app',
+    path: 'app',
     Component: App,
-    children: [
-      {
-        path: '/question',
-        Component: Question,
-        children: [
-          {
-            path: '/interview',
-            Component: Interview,
-          },
-          {
-            path: '/writtenExamination',
-            Component: WrittenExamination,
-          },
-        ],
-      },
-    ],
+    routes: [...appRoutes],
   },
 ];
 
