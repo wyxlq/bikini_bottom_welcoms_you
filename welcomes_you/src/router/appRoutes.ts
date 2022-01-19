@@ -1,23 +1,20 @@
+import Room from '@/views/App/Room/Room';
 import Question from '@/views/App/Question/Question';
-import Interview from '@/views/App/Question/Interview/Interview';
-import WrittenExamination from '@/views/App/Question/WrittenExamination/WrittenExamination';
+import questionRoutes from './questionRoutes';
 
 import { BaseRoutes } from '@/types/index.d';
 
 const routes: BaseRoutes = [
   {
+    title: '比奇堡',
+    path: 'room',
+    Component: Room,
+  },
+  {
+    title: '题库',
     path: 'question',
     Component: Question,
-    routes: [
-      {
-        path: 'interview',
-        Component: Interview,
-      },
-      {
-        path: 'writtenExamination',
-        Component: WrittenExamination,
-      },
-    ],
+    routes: questionRoutes,
   },
 ];
 

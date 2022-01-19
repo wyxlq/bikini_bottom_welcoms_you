@@ -7,7 +7,7 @@ import './Login.scss';
 
 const Login = () => {
   return (
-    <div className="login">
+    <div className="Login">
       <div className="photo-frame">
         <img
           className="photo"

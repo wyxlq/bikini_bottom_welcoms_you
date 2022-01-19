@@ -1,4 +1,5 @@
 export interface BaseRoute {
+  title: string;
   path: string;
   Component: () => JSX.Element;
   routes?: Routes;
