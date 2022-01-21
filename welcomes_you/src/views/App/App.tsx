@@ -55,7 +55,20 @@ const App = () => {
           )}
         </Menu>
       </div>
-      <Routes>{rRoute(routes)}</Routes>
+      <div className="container">
+        <div className="navigation">
+          <div></div>
+          <div className="character">
+            <div className="avatar-container">
+              <img className="avatar" src="" />
+            </div>
+            <div className="name">派大星</div>
+          </div>
+        </div>
+        <div className="content">
+          <Routes>{rRoute(routes)}</Routes>
+        </div>
+      </div>
     </div>
   );
 };

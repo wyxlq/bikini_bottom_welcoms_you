@@ -25,6 +25,39 @@
       flex: 1;
     }
   }
-  .content {
+  .container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .navigation {
+      height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0 24px;
+      background-color: #1890ff;
+      .character {
+        display: flex;
+        align-items: center;
+        .avatar-container {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          box-sizing: border-box;
+          border: 4px solid #fff;
+          .avatar {
+          }
+        }
+        .name {
+          margin-left: 8px;
+          line-height: 1;
+          font-size: 14px;
+          color: #fff;
+        }
+      }
+    }
+    .content {
+    }
   }
 }
