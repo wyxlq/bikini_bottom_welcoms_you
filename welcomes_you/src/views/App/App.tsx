@@ -35,29 +35,33 @@ const App = () => {
           <div className="text">BIKINI BOTTOM</div>
           <div className="text">WELECOMES YOU</div>
         </div>
-        <Menu
-          className="menu"
-          defaultOpenKeys={['question']}
-          mode="inline"
-          theme="dark"
-          onClick={menuClickEventHandler}
-        >
-          {routes.map(route =>
-            Array.isArray(route.routes) ? (
-              <SubMenu key={route.path} title={route.title}>
-                {route.routes.map(route => (
-                  <Menu.Item key={route.path}>{route.title}</Menu.Item>
-                ))}
-              </SubMenu>
-            ) : (
-              <Menu.Item key={route.path}>{route.title}</Menu.Item>
-            )
-          )}
-        </Menu>
+        <div className="menu-wrap">
+          <Menu
+            className="menu"
+            defaultOpenKeys={['question']}
+            mode="inline"
+            theme="dark"
+            onClick={menuClickEventHandler}
+          >
+            {routes.map(route =>
+              Array.isArray(route.routes) ? (
+                <SubMenu key={route.path} title={route.title}>
+                  {route.routes.map(route => (
+                    <Menu.Item key={route.path}>{route.title}</Menu.Item>
+                  ))}
+                </SubMenu>
+              ) : (
+                <Menu.Item key={route.path}>{route.title}</Menu.Item>
+              )
+            )}
+          </Menu>
+        </div>
       </div>
       <div className="container">
         <div className="navigation">
-          <div></div>
+          <div className="doorplate">
+            <div className="text">比奇堡欢迎你</div>
+          </div>
           <div className="character">
             <div className="avatar-container">
               <img className="avatar" src="" />

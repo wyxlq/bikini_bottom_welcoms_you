@@ -5,13 +5,13 @@ import { BaseRoutes } from '@/types/index.d';
 
 const routes: BaseRoutes = [
   {
-    title: '登录',
     path: 'login',
+    title: '登录',
     Component: Login,
   },
   {
-    title: 'App',
     path: 'app/*',
+    title: 'App',
     Component: App,
   },
 ];

@@ -5,13 +5,13 @@ import { BaseRoutes } from '@/types/index.d';
 
 const routes: BaseRoutes = [
   {
-    title: '笔试题',
     path: 'written-examination',
+    title: '笔试题',
     Component: WrittenExamination,
   },
   {
-    title: '面试题',
     path: 'interview',
+    title: '面试题',
     Component: Interview,
   },
 ];

@@ -23,39 +23,43 @@ const Login = () => {
         <div className="form-wrap">
           <Form className="form">
             <Form.Item
-              name="username"
+              name="account"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Username!',
+                  message: '请输入账号！',
                 },
               ]}
             >
-              <Input placeholder="Username" prefix={<UserOutlined />} />
+              <Input placeholder="请输入账号" prefix={<UserOutlined />} />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
-                  message: 'Please input your Password!',
+                  message: '请输入密码！',
                 },
               ]}
             >
               <Input
                 type="password"
-                placeholder="Password"
+                placeholder="请输入密码"
                 prefix={<LockOutlined />}
               />
             </Form.Item>
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>记住我</Checkbox>
               </Form.Item>
             </Form.Item>
             <Form.Item noStyle>
-              <Button className="button-login" type="primary" htmlType="submit">
-                Log in
+              <Button
+                className="button button-login"
+                type="primary"
+                htmlType="submit"
+              >
+                登录
               </Button>
             </Form.Item>
           </Form>

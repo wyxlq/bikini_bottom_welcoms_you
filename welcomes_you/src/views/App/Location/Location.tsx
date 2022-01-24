@@ -1,128 +1,98 @@
 import React from 'react';
-import { Table } from 'antd';
-import classnames from 'classnames';
+import { Breadcrumb, Button, Table } from 'antd';
+import TrafficLight from '@/components/TrafficLight/TrafficLight';
+import characters from '@/mock/characters';
+import locations from '@/mock/locations';
+import users from '@/mock/users';
+
+import { BaseCharacter, BaseUser } from '@/types/index.d';
 
 import './Location.scss';
 
-const dataSource = [
-  {
-    key: 1,
-    code: 'Pineapple_House',
-    name: '菠萝屋',
-    isInUse: true,
-    user: ['小蜗'],
-  },
-  {
-    key: 2,
-    code: 'Rock_House',
-    name: '石头屋',
-    isInUse: true,
-    user: ['派大星'],
-  },
-  {
-    key: 3,
-    code: 'Easter_Island_Head_House',
-    name: '复活岛人像屋',
-    isInUse: false,
-  },
-  {
-    key: 4,
-    code: 'Treedome',
-    name: '圆顶树屋',
-    isInUse: true,
-    user: ['珊迪'],
-  },
-  {
-    key: 5,
-    code: 'Anchor_house',
-    name: '船锚屋',
-    isInUse: true,
-    user: ['珍珍'],
-  },
-  {
-    key: 6,
-    code: 'Krusty_Krab',
-    name: '蟹堡王餐厅',
-    isInUse: true,
-    user: ['蟹老板', '海绵宝宝', '章鱼哥'],
-  },
-  {
-    key: 7,
-    code: 'Chum_Bucket',
-    name: '海之霸餐厅',
-    isInUse: true,
-    user: ['痞老板', '凯伦'],
-  },
-  {
-    key: 8,
-    code: "Mrs. Puff's Boating School",
-    name: '泡芙老师的海底驾驶训练班',
-    isInUse: true,
-    user: ['泡芙老师'],
-  },
-  {
-    key: 9,
-    code: 'Shady_Shoals_Rest_Home',
-    name: '沙沙礁岩安养中心',
-    isInUse: true,
-    user: ['海超人', '大洋游侠'],
-  },
-  {
-    key: 10,
-    code: 'Jellyfish_Fields',
-    name: '水母田',
-    isInUse: false,
-  },
-  {
-    key: 11,
-    code: 'Goo_Lagoon',
-    name: '酷乐湖',
-    isInUse: true,
-    user: ['虾霸'],
-  },
-];
-const columns = [
-  {
-    dataIndex: 'name',
-    key: 'name',
-    title: 'Name',
-  },
-  {
-    dataIndex: 'isInUse',
-    key: 'isInUse',
-    title: '正在使用中',
-    render: (text: any, record: any) => (
-      <TrafficLight color={record.isInUse ? 'red' : 'green'} />
-    ),
-  },
-  {
-    dataIndex: 'user',
-    key: 'user',
-    title: '使用者',
-    render: (text: any, record: any) => (
-      <div>{record.user?.join('、') || '-'}</div>
-    ),
-  },
-  {
-    dataIndex: 'operate',
-    key: 'operate',
-    title: '操作',
-    render: (text: any, record: any) => {
-      return !record.isInUse && <div className="button-enter">进入</div>;
-    },
-  },
-];
-const TrafficLight = ({ color }: { color: 'red' | 'green' }) => (
-  <div className={classnames(['TrafficLight', color])} />
-);
+interface CharacterDic {
+  [code: string]: BaseCharacter;
+}
+interface UserDic {
+  [id: number]: BaseUser;
+}
+let characterDic: CharacterDic = {};
+characters.forEach(character => {
+  characterDic[character.code] = character;
+});
+let userDic: UserDic = {};
+users.forEach(user => {
+  userDic[user.id] = user;
+});
 const Location = () => {
   return (
     <div className="Location">
+      <div className="operate-container">
+        <div className="breadcrumb-container">
+          <Breadcrumb className="breadcrumb">
+            <Breadcrumb.Item>比奇堡</Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
+        <div className="button-container">
+          <Button className="button" type="primary">
+            新增地点
+          </Button>
+        </div>
+      </div>
       <div className="table-container">
         <Table
           className="table"
-          dataSource={dataSource}
-          columns={columns}
+          dataSource={locations}
+          columns={[
+            {
+              dataIndex: 'name',
+              key: 'name',
+              width: 100,
+              title: '名称',
+            },
+            {
+              dataIndex: 'isInUse',
+              key: 'isInUse',
+              width: 300,
+              align: 'center',
+              title: '使用中',
+              render: (text: any, record: any) => (
+                <div className="traffic-light-container">
+                  <TrafficLight color={record.isInUse ? 'red' : 'green'} />
+                </div>
+              ),
+            },
+            {
+              dataIndex: 'user',
+              key: 'user',
+              width: 100,
+              title: '使用者',
+              render: (text: any, record: any) => {
+                const characterNames = record.userIds.map(
+                  (userId: number) =>
+                    characterDic[userDic[userId].characterCode].name
+                );
+                return <>{characterNames.join('、') || '-'}</>;
+              },
+            },
+            {
+              dataIndex: 'operate',
+              key: 'operate',
+              width: 200,
+              align: 'center',
+              title: '操作',
+              render: (text: any, record: any) => {
+                return (
+                  !record.isInUse && (
+                    <div className="button-container">
+                      <Button className="button button-enter" type="link">
+                        进入
+                      </Button>
+                    </div>
+                  )
+                );
+              },
+            },
+          ]}
           pagination={{
             pageSize: 20,
           }}

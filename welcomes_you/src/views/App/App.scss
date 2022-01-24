@@ -1,6 +1,6 @@
 .App {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   .menu-container {
     width: 200px;
@@ -9,6 +9,7 @@
     flex-direction: column;
     background-color: #001529;
     .doorplate {
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,8 +22,11 @@
         color: #fff;
       }
     }
-    .menu {
+    .menu-wrap {
       flex: 1;
+      margin-top: 24px;
+      .menu {
+      }
     }
   }
   .container {
@@ -30,13 +34,22 @@
     display: flex;
     flex-direction: column;
     .navigation {
+      width: 100%;
       height: 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-sizing: border-box;
+      border: 1px solid #f0f0f0;
       padding: 0 24px;
-      background-color: #1890ff;
+      background-color: #fff;
+      .doorplate {
+        .text {
+          font-weight: bold;
+          font-size: 16px;
+          color: rgba(0, 0, 0, 0.85);
+        }
+      }
       .character {
         display: flex;
         align-items: center;
@@ -45,7 +58,7 @@
           height: 24px;
           border-radius: 50%;
           box-sizing: border-box;
-          border: 4px solid #fff;
+          border: 2px solid #1890ff;
           .avatar {
           }
         }
@@ -53,11 +66,12 @@
           margin-left: 8px;
           line-height: 1;
           font-size: 14px;
-          color: #fff;
+          color: rgba(0, 0, 0, 0.85);
         }
       }
     }
     .content {
+      width: 100%;
     }
   }
 }

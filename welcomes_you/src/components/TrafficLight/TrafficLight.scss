@@ -1,0 +1,15 @@
+.TrafficLight {
+  .light {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    &.red {
+      box-shadow: 0 0 4px 2px rgba(#ad2102, 0.8);
+      background-color: #ad2102;
+    }
+    &.green {
+      box-shadow: 0 0 4px 2px rgba(#237804, 0.8);
+      background-color: #237804;
+    }
+  }
+}
