@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Breadcrumb, Button, Table } from 'antd';
 import TrafficLight from '@/components/TrafficLight/TrafficLight';
 import characters from '@/mock/characters';
@@ -24,6 +24,13 @@ users.forEach(user => {
   userDic[user.id] = user;
 });
 const Location = () => {
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+  const [tableScrollY, setTableScrollY] = useState<number>();
+  useEffect(() => {
+    const tableContainerClientHeight: number =
+      tableContainerRef.current?.clientHeight || 0;
+    setTableScrollY(tableContainerClientHeight - 16 - 32 - 55);
+  }, [tableContainerRef]);
   return (
     <div className="Location">
       <div className="operate-container">
@@ -38,9 +45,12 @@ const Location = () => {
           </Button>
         </div>
       </div>
-      <div className="table-container">
+      <div className="table-container" ref={tableContainerRef}>
         <Table
           className="table"
+          scroll={{
+            y: tableScrollY,
+          }}
           dataSource={locations}
           columns={[
             {
@@ -94,7 +104,11 @@ const Location = () => {
             },
           ]}
           pagination={{
-            pageSize: 20,
+            pageSize: 10,
+            showQuickJumper: true,
+            showSizeChanger: true,
+            showTotal: total => <div className="total">共 {total} 个地点</div>,
+            total: 11,
           }}
         />
       </div>

@@ -43,17 +43,19 @@ const App = () => {
             theme="dark"
             onClick={menuClickEventHandler}
           >
-            {routes.map(route =>
-              Array.isArray(route.routes) ? (
-                <SubMenu key={route.path} title={route.title}>
-                  {route.routes.map(route => (
-                    <Menu.Item key={route.path}>{route.title}</Menu.Item>
-                  ))}
-                </SubMenu>
-              ) : (
-                <Menu.Item key={route.path}>{route.title}</Menu.Item>
-              )
-            )}
+            {routes
+              .filter(route => route.showInMenu)
+              .map(route =>
+                Array.isArray(route.routes) ? (
+                  <SubMenu key={route.path} title={route.title}>
+                    {route.routes.map(route => (
+                      <Menu.Item key={route.path}>{route.title}</Menu.Item>
+                    ))}
+                  </SubMenu>
+                ) : (
+                  <Menu.Item key={route.path}>{route.title}</Menu.Item>
+                )
+              )}
           </Menu>
         </div>
       </div>

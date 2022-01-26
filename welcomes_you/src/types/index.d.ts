@@ -1,8 +1,9 @@
 export interface BaseRoute {
   path: string;
-  title: string;
+  title?: string;
+  showInMenu?: boolean;
   Component: () => JSX.Element;
-  routes?: Routes;
+  routes?: Array<BaseRoute>;
 }
 export type BaseRoutes = Array<BaseRoute>;
 export interface BaseCharacter {
