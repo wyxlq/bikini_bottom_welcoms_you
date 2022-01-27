@@ -3,25 +3,25 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import LockOutlined from '@ant-design/icons/LockOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import SpongeBobSquarePantsSource from '@/assets/images/SpongeBobSquarePants.jpg';
-import './Login.scss';
+import styles from './Login.module.scss';
 
 const Login = () => {
   return (
-    <div className="Login">
-      <div className="photo-frame">
+    <div className={styles['Login']}>
+      <div className={styles['photo-frame']}>
         <img
-          className="photo"
+          className={styles['photo']}
           src={SpongeBobSquarePantsSource}
           alt="SpongeBobSquarePants"
         />
       </div>
-      <div className="form-container">
-        <div className="doorplate">
-          <div className="text">BIKINI BOTTOM</div>
-          <div className="text">WELECOMES YOU</div>
+      <div className={styles['form-container']}>
+        <div className={styles['doorplate']}>
+          <div className={styles['text']}>BIKINI BOTTOM</div>
+          <div className={styles['text']}>WELECOMES YOU</div>
         </div>
-        <div className="form-wrap">
-          <Form className="form">
+        <div className={styles['form-wrap']}>
+          <Form className={styles['form']}>
             <Form.Item
               name="account"
               rules={[
@@ -55,7 +55,7 @@ const Login = () => {
             </Form.Item>
             <Form.Item noStyle>
               <Button
-                className="button button-login"
+                className={styles['button button-login']}
                 type="primary"
                 htmlType="submit"
               >

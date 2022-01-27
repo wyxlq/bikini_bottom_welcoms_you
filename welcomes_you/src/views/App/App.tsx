@@ -6,7 +6,7 @@ import routes from '@/router/appRoutes';
 import { MenuClickEventHandler } from 'antd/node_modules/rc-menu/lib/interface.d';
 import { BaseRoutes } from '@/types/index.d';
 
-import './App.scss';
+import styles from './App.module.scss';
 
 const { SubMenu } = Menu;
 const rRoute = (routes: BaseRoutes) =>
@@ -29,15 +29,15 @@ const App = () => {
     navigate(path);
   };
   return (
-    <div className="App">
-      <div className="menu-container">
-        <div className="doorplate">
-          <div className="text">BIKINI BOTTOM</div>
-          <div className="text">WELECOMES YOU</div>
+    <div className={styles['App']}>
+      <div className={styles['menu-container']}>
+        <div className={styles['doorplate']}>
+          <div className={styles['text']}>BIKINI BOTTOM</div>
+          <div className={styles['text']}>WELECOMES YOU</div>
         </div>
-        <div className="menu-wrap">
+        <div className={styles['menu-wrap']}>
           <Menu
-            className="menu"
+            className={styles['menu']}
             defaultOpenKeys={['question']}
             mode="inline"
             theme="dark"
@@ -59,19 +59,19 @@ const App = () => {
           </Menu>
         </div>
       </div>
-      <div className="container">
-        <div className="navigation">
-          <div className="doorplate">
-            <div className="text">比奇堡欢迎你</div>
+      <div className={styles['container']}>
+        <div className={styles['navigation']}>
+          <div className={styles['doorplate']}>
+            <div className={styles['text']}>比奇堡欢迎你</div>
           </div>
-          <div className="character">
-            <div className="avatar-container">
-              <img className="avatar" src="" />
+          <div className={styles['character']}>
+            <div className={styles['avatar-container']}>
+              <img className={styles['avatar']} src="" />
             </div>
-            <div className="name">派大星</div>
+            <div className={styles['name']}>派大星</div>
           </div>
         </div>
-        <div className="content">
+        <div className={styles['content']}>
           <Routes>{rRoute(routes)}</Routes>
         </div>
       </div>
