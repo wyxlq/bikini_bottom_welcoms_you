@@ -1,7 +1,5 @@
 export interface BaseRoute {
   path: string;
-  title?: string;
-  showInMenu?: boolean;
   Component: () => JSX.Element;
   routes?: Array<BaseRoute>;
 }

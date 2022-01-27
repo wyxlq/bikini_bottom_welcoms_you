@@ -1,5 +1,11 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { Menu } from 'antd';
 import routes from '@/router/appRoutes';
 
@@ -8,7 +14,24 @@ import { BaseRoutes } from '@/types/index.d';
 
 import styles from './App.module.scss';
 
-const { SubMenu } = Menu;
+const menus = [
+  {
+    path: '/app/interview-room/list',
+    title: '面试间',
+  },
+  {
+    path: '/app/archive/list',
+    title: '档案',
+  },
+  {
+    path: '/app/question/oral-examination/list',
+    title: '口试题',
+  },
+  {
+    path: '/app/question/written-examination/list',
+    title: '笔试题',
+  },
+];
 const rRoute = (routes: BaseRoutes) =>
   routes.map((route, index) => {
     const Component = route.Component;
@@ -19,54 +42,45 @@ const rRoute = (routes: BaseRoutes) =>
     );
   });
 const App = () => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
   const menuClickEventHandler: MenuClickEventHandler = ({ keyPath }) => {
-    let i = keyPath.length;
-    let path = '/app';
-    while (--i >= 0) {
-      path += `/${keyPath[i]}`;
-    }
-    navigate(path);
+    navigate(keyPath[0]);
   };
   return (
     <div className={styles['App']}>
       <div className={styles['menu-container']}>
-        <div className={styles['doorplate']}>
+        <div className={styles['logo']}>
           <div className={styles['text']}>BIKINI BOTTOM</div>
           <div className={styles['text']}>WELECOMES YOU</div>
         </div>
         <div className={styles['menu-wrap']}>
           <Menu
             className={styles['menu']}
-            defaultOpenKeys={['question']}
+            defaultOpenKeys={['/app/question']}
+            defaultSelectedKeys={[pathname]}
             mode="inline"
             theme="dark"
             onClick={menuClickEventHandler}
           >
-            {routes
-              .filter(route => route.showInMenu)
-              .map(route =>
-                Array.isArray(route.routes) ? (
-                  <SubMenu key={route.path} title={route.title}>
-                    {route.routes.map(route => (
-                      <Menu.Item key={route.path}>{route.title}</Menu.Item>
-                    ))}
-                  </SubMenu>
-                ) : (
-                  <Menu.Item key={route.path}>{route.title}</Menu.Item>
-                )
-              )}
+            {menus.map(menu => (
+              <Menu.Item key={menu.path}>{menu.title}</Menu.Item>
+            ))}
           </Menu>
         </div>
       </div>
       <div className={styles['container']}>
         <div className={styles['navigation']}>
-          <div className={styles['doorplate']}>
+          <div className={styles['slogan']}>
             <div className={styles['text']}>比奇堡欢迎你</div>
           </div>
-          <div className={styles['character']}>
+          <div className={styles['user']}>
             <div className={styles['avatar-container']}>
-              <img className={styles['avatar']} src="" />
+              <img
+                className={styles['avatar']}
+                src="//img2.baidu.com/it/u=4205517773,2939419564&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
+                alt="avatar"
+              />
             </div>
             <div className={styles['name']}>派大星</div>
           </div>

@@ -14,56 +14,114 @@ import { BaseRoutes } from '@/types/index.d';
 
 const routes: BaseRoutes = [
   {
-    path: 'interview-room/list',
-    title: '面试间',
-    showInMenu: true,
+    path: 'interview-room',
     Component: InterviewRoomList,
+    routes: [
+      {
+        path: 'list',
+        Component: InterviewRoomList,
+      },
+      {
+        path: 'detail',
+        Component: InterviewRoomDetail,
+        routes: [
+          {
+            path: ':interviewRoomCode',
+            Component: InterviewRoomDetail,
+          },
+        ],
+      },
+    ],
   },
   {
-    path: 'interview-room/detail/:interviewRoomCode',
-    Component: InterviewRoomDetail,
-  },
-  {
-    path: 'archive/list',
-    title: '档案',
-    showInMenu: true,
+    path: 'archive',
     Component: ArchiveList,
+    routes: [
+      {
+        path: 'list',
+        Component: ArchiveList,
+      },
+      {
+        path: 'detail',
+        Component: ArchiveDetail,
+        routes: [
+          {
+            path: ':archiveId',
+            Component: ArchiveDetail,
+          },
+        ],
+      },
+      {
+        path: 'form',
+        Component: ArchiveForm,
+        routes: [
+          {
+            path: ':archiveId',
+            Component: ArchiveForm,
+          },
+        ],
+      },
+    ],
   },
   {
-    path: 'archive/detail',
-    Component: ArchiveDetail,
-  },
-  {
-    path: 'archive/form',
-    Component: ArchiveForm,
-  },
-  {
-    path: 'question/oral-examination/list',
-    title: '口试',
-    showInMenu: true,
+    path: 'question/oral-examination',
     Component: OralExaminationQuestionList,
+    routes: [
+      {
+        path: 'list',
+        Component: OralExaminationQuestionList,
+      },
+      {
+        path: 'detail',
+        Component: OralExaminationQuestionDetail,
+        routes: [
+          {
+            path: ':questionId',
+            Component: OralExaminationQuestionDetail,
+          },
+        ],
+      },
+      {
+        path: 'form',
+        Component: OralExaminationQuestionForm,
+        routes: [
+          {
+            path: ':questionId',
+            Component: OralExaminationQuestionForm,
+          },
+        ],
+      },
+    ],
   },
   {
-    path: 'question/oral-examination/detail',
-    Component: OralExaminationQuestionDetail,
-  },
-  {
-    path: 'question/oral-examination/form',
-    Component: OralExaminationQuestionForm,
-  },
-  {
-    path: 'question/written-examination/list',
-    title: '笔试',
-    showInMenu: true,
+    path: 'question/written-examination',
     Component: WrittenExaminationQuestionList,
-  },
-  {
-    path: 'question/written-examination/detail',
-    Component: WrittenExaminationQuestionDetail,
-  },
-  {
-    path: 'question/written-examination/form',
-    Component: WrittenExaminationQuestionForm,
+    routes: [
+      {
+        path: 'list',
+        Component: WrittenExaminationQuestionList,
+      },
+      {
+        path: 'detail',
+        Component: WrittenExaminationQuestionDetail,
+        routes: [
+          {
+            path: ':questionId',
+            Component: WrittenExaminationQuestionDetail,
+          },
+        ],
+      },
+      {
+        path: 'form',
+        Component: WrittenExaminationQuestionForm,
+        routes: [
+          {
+            path: ':questionId',
+            Component: WrittenExaminationQuestionForm,
+          },
+        ],
+      },
+    ],
   },
 ];
 
