@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { routes } from '@/router/index';
+import routes from '@/router/index';
 
 import { BaseRoutes } from '@/types/index.d';
 

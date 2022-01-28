@@ -1,6 +1,4 @@
-import { BaseCharacters } from '@/types/index.d';
-
-const characters: BaseCharacters = [
+const characters = [
   {
     code: 'SpongeBob_SquarePants',
     name: '海绵宝宝',
