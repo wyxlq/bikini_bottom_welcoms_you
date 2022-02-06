@@ -1,0 +1,17 @@
+.InterviewRoomForm {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 32px;
+  .formContainer {
+    width: 400px;
+    min-width: 400px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    background-color: #fff;
+  }
+}

@@ -23,6 +23,7 @@ const ForkTsCheckerWebpackPlugin =
     ? require('react-dev-utils/ForkTsCheckerWarningWebpackPlugin')
     : require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
 
@@ -398,6 +399,10 @@ module.exports = function (webpackEnv) {
                 and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
               },
             },
+            {
+              test: /\.ttf$/,
+              loader: require.resolve('file-loader'),
+            },
             // Process application JS with Babel.
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
@@ -457,6 +462,11 @@ module.exports = function (webpackEnv) {
                 sourceMaps: shouldUseSourceMap,
                 inputSourceMap: shouldUseSourceMap,
               },
+            },
+            {
+              test: cssRegex,
+              include: /monaco-editor/,
+              use: ['style-loader', 'css-loader'],
             },
             // "postcss" loader applies autoprefixer to our CSS.
             // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -560,6 +570,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
+      new MonacoWebpackPlugin(),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(
         Object.assign(
