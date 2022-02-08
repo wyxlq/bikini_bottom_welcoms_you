@@ -16,7 +16,7 @@ export const useWebSocket = (id: string) => {
   const [socketinstane, setSocket] = useState<WebSocket>();
   useEffect(() => {
     const socket = new WebSocket(
-      `ws://localhost:7000/api/ws/interview?id=${id}`
+      `ws://172.18.68.4:7000/api/ws/interview?id=${id}`
     );
 
     setSocket(socket);
@@ -44,7 +44,6 @@ export const useCodeFromRemote = (socket?: WebSocket) => {
   useEffect(() => {
     if (socket) {
       socket.addEventListener('message', async e => {
-        // console.log('data', e, Blo);
         if (!(e.data instanceof Blob)) {
           return;
         }

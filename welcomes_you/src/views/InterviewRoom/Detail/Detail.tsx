@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router';
 import * as monaco from 'monaco-editor';
+import { WSTypes } from './constants';
+import { getBuffer, useCodeFromRemote, useWebSocket } from './webscoket';
 
 import styles from './Detail.module.scss';
-import { useLocation } from 'react-router';
-import { getBuffer, useCodeFromRemote, useWebSocket } from './webscoket';
-import { WSTypes } from './constants';
 
 function useQuery() {
   const { search } = useLocation();
@@ -31,7 +31,6 @@ const InterviewRoomDetail = () => {
     }
     const instance = edtorInstance.current;
     instance?.onDidChangeContent(e => {
-      console.log('e', e, instance.getLinesContent());
       const val = instance.getLinesContent().join('\n');
       if (codeRef.current !== val) {
         socketRef.current?.send(getBuffer(WSTypes.setValue, val));
@@ -45,8 +44,8 @@ const InterviewRoomDetail = () => {
   }, []);
   useEffect(() => {
     if (edtorInstance.current) {
-      const value = edtorInstance.current.getLinesContent().join('\n');
-      if (value !== code) {
+      const val = edtorInstance.current.getLinesContent().join('\n');
+      if (val !== code) {
         edtorInstance.current.setValue(code);
       }
     }

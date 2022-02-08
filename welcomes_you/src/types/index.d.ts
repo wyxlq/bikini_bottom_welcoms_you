@@ -1,6 +1,6 @@
 export interface BaseRoute {
   path: string;
-  Component?: () => JSX.Element;
   routes?: BaseRoutes;
+  Component?: () => JSX.Element;
 }
 export type BaseRoutes = Array<BaseRoute>;

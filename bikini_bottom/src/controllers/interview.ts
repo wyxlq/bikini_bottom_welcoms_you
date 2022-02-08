@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import type expressWs from 'express-ws';
-import type WebSocket from 'ws';
+import { v4 as uuidv4 } from 'uuid';
 import { getWsApp } from '../wss';
+
+import type WebSocket from 'ws';
 
 interface IWebSocket extends WebSocket {
   interviewId?: string;
@@ -30,30 +31,13 @@ interface InterviewDetail {
   id: string;
   value: string;
   createdTime: number;
-  interviewee: string;
-  email: string;
+  intervieweeName: string;
+  intervieweeEmail: string;
+  interviewerEmail: string;
 }
 const interviews: Record<string, InterviewDetail> = {};
 
-export const createInterview: RequestHandler<
-  any,
-  any,
-  { interviewee: string; email: string }
-> = (req, res) => {
-  console.log('body', req.body);
-  const { interviewee, email } = req.body;
-  const detail: InterviewDetail = {
-    id: uuidv4(),
-    value: '',
-    createdTime: Date.now(),
-    interviewee,
-    email,
-  };
-  interviews[detail.id] = detail;
-  res.sendData(detail.id);
-};
-
-export const getInterview: RequestHandler<{
+export const readInterview: RequestHandler<{
   id: string;
 }> = (req, res) => {
   const id = req.query.id;
@@ -62,7 +46,27 @@ export const getInterview: RequestHandler<{
   }
   res.sendData();
 };
-
+export const createInterview: RequestHandler<
+  any,
+  any,
+  {
+    intervieweeName: string;
+    intervieweeEmail: string;
+    interviewerEmail: string;
+  }
+> = (req, res) => {
+  const { intervieweeName, intervieweeEmail, interviewerEmail } = req.body;
+  const detail: InterviewDetail = {
+    id: uuidv4(),
+    createdTime: Date.now(),
+    value: '',
+    intervieweeName,
+    intervieweeEmail,
+    interviewerEmail,
+  };
+  interviews[detail.id] = detail;
+  res.sendData(detail.id);
+};
 export const updateInterview: RequestHandler<
   any,
   any,
