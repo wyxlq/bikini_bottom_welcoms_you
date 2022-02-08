@@ -53,16 +53,10 @@ const InterviewRoomForm = () => {
             >
               <Input placeholder="请输入面试者邮箱地址" />
             </Form.Item>
-            <Form.Item
-              label="面试官邮箱地址"
-              name="interviewerEmail"
-              rules={[
-                {
-                  required: true,
-                  message: '请输入面试官邮箱地址',
-                },
-              ]}
-            >
+            <Form.Item label="面试官姓名" name="interviewerName">
+              <Input placeholder="请输入面试官姓名" />
+            </Form.Item>
+            <Form.Item label="面试官邮箱地址" name="interviewerEmail">
               <Input placeholder="请输入面试官邮箱地址" />
             </Form.Item>
             <Form.Item
@@ -76,7 +70,7 @@ const InterviewRoomForm = () => {
                 htmlType="submit"
                 type="primary"
               >
-                生成面试链接并发送到面试者邮箱
+                生成面试链接并发送到邮箱
               </Button>
             </Form.Item>
           </Form>

@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express';
-import type expressWs from 'express-ws';
 import { v4 as uuidv4 } from 'uuid';
+import { initEmail, sendEmail } from '../email';
 import { getWsApp } from '../wss';
 
+import type expressWs from 'express-ws';
 import type WebSocket from 'ws';
 
 interface IWebSocket extends WebSocket {
@@ -33,6 +34,7 @@ interface InterviewDetail {
   createdTime: number;
   intervieweeName: string;
   intervieweeEmail: string;
+  interviewerName: string;
   interviewerEmail: string;
 }
 const interviews: Record<string, InterviewDetail> = {};
@@ -52,19 +54,49 @@ export const createInterview: RequestHandler<
   {
     intervieweeName: string;
     intervieweeEmail: string;
+    interviewerName: string;
     interviewerEmail: string;
   }
 > = (req, res) => {
-  const { intervieweeName, intervieweeEmail, interviewerEmail } = req.body;
+  const {
+    intervieweeName,
+    intervieweeEmail,
+    interviewerName,
+    interviewerEmail,
+  } = req.body;
   const detail: InterviewDetail = {
     id: uuidv4(),
     createdTime: Date.now(),
     value: '',
     intervieweeName,
     intervieweeEmail,
+    interviewerName,
     interviewerEmail,
   };
   interviews[detail.id] = detail;
+
+  initEmail();
+  sendEmail({
+    to: intervieweeEmail,
+    subject: '大搜车笔试邀请',
+    text: '欢迎参加大搜车笔试',
+    html:
+      `<div>hi，${intervieweeName}同学，您好，请点击<a href="http://172.18.68.4:3000/#/interview-room/detail?id=` +
+      detail.id +
+      '">链接</a>进入笔试间</div>',
+  });
+  if (interviewerEmail) {
+    sendEmail({
+      to: interviewerEmail,
+      subject: '大搜车笔试邀请',
+      text: '欢迎参加大搜车笔试',
+      html:
+        `<div>hi，${interviewerName}面试官，您好，请点击<a href="http://172.18.68.4:3000/#/interview-room/detail?id=` +
+        detail.id +
+        '">链接</a>进入笔试间</div>',
+    });
+  }
+
   res.sendData(detail.id);
 };
 export const updateInterview: RequestHandler<
