@@ -1,5 +1,5 @@
-// import InterviewRecordList from '@/views/InterviewRecord/List/List'; // 面试记录列表
-// import InterviewRecordDetail from '@/views/InterviewRecord/Detail/Detail'; // 面试记录详情
+import InterviewRecordList from '@/views/InterviewRecord/List/List'; // 面试记录列表
+import InterviewRecordDetail from '@/views/InterviewRecord/Detail/Detail'; // 面试记录详情
 import InterviewRoomDetail from '@/views/InterviewRoom/Detail/Detail'; // 面试间详情
 import InterviewRoomForm from '@/views/InterviewRoom/Form/Form'; // 面试间表单
 // import OralExaminationQuestionList from '@/views/Question/OralExamination/List/List'; // 口试题列表
@@ -12,25 +12,25 @@ import InterviewRoomForm from '@/views/InterviewRoom/Form/Form'; // 面试间表
 import { BaseRoutes } from '@/types/index.d';
 
 const routes: BaseRoutes = [
-  // {
-  //   path: 'interview-record',
-  //   routes: [
-  //     {
-  //       path: 'list',
-  //       Component: InterviewRecordList,
-  //     },
-  //     {
-  //       path: 'detail',
-  //       Component: InterviewRecordDetail,
-  //       routes: [
-  //         {
-  //           path: ':recordId',
-  //           Component: InterviewRecordDetail,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  {
+    path: 'interview-record',
+    routes: [
+      {
+        path: 'list',
+        Component: InterviewRecordList,
+      },
+      {
+        path: 'detail',
+        Component: InterviewRecordDetail,
+        routes: [
+          {
+            path: ':recordId',
+            Component: InterviewRecordDetail,
+          },
+        ],
+      },
+    ],
+  },
   {
     path: 'interview-room',
     routes: [

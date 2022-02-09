@@ -7,6 +7,4 @@ let wsApp: expressWs.Instance = null;
 export const initWs = (app: Express) => {
   wsApp = expressWs(app);
 };
-export const getWsApp = () => {
-  return wsApp;
-};
+export const getWsApp = () => wsApp;

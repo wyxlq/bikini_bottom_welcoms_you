@@ -1,16 +1,19 @@
 import express from 'express';
+import { initEmail } from './email';
 import { getWsApp, initWs } from './wss';
 import * as interview from './controllers/interview';
 
 const app = express();
 
+initEmail();
 initWs(app);
 
 app.use(async function (req, res, next) {
-  res.sendData = jsonData => {
+  res.sendData = ({ data, message = '', success = true }) => {
     res.json({
-      success: true,
-      data: jsonData,
+      data,
+      message,
+      success,
     });
   };
   next();

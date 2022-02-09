@@ -1,10 +1,13 @@
-import react from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Alert, Button, Form, Input } from 'antd';
+import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 
 import styles from './Form.module.scss';
 
 const InterviewRoomForm = () => {
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
   const submitHandler = async (e: any) => {
     const resp = await fetch('/api/createInterview', {
@@ -15,67 +18,117 @@ const InterviewRoomForm = () => {
       body: JSON.stringify(e),
     });
     const res = await resp.json();
-    navigate(`/interview-room/detail?id=${res.data}`);
+    if (!res.success) {
+      setAlertVisible(true);
+      setErrMsg(res.message);
+    }
+    setTimeout(() => {
+      navigate(`/interview-room/detail?id=${res.data}`);
+    }, 2000);
   };
   return (
     <div className={styles.InterviewRoomForm}>
-      <div className={styles.left}>
+      <div className={styles.backgroundContainer}>
         <div className={styles.background}></div>
+        <div className={styles.bottom}></div>
       </div>
-      <div className={styles.right}>
+      <div className={styles.main}>
+        <div className={styles.titleContainer}>
+          <div className={styles.title}>BIKINI BOTTOM</div>
+          <div className={styles.description}>
+            一个<span className={styles.em}> 轻量级 </span>的
+            <span className={styles.em}> 实时共享 </span>笔试系统
+          </div>
+        </div>
         <div className={styles.formContainer}>
-          <div className={styles.titleContainer}>
-            <div className={styles.title}>比奇堡</div>
-            <div className={styles.description}>一个轻量的在线笔试系统</div>
+          <div className={styles.descriptionContainer}>
+            <div className={styles.description}>
+              填写完表单后，点击『生成笔试链接并发送到邮箱』按钮，会创建一个临时的笔试链接，分别发送到面试者和面试官邮箱中，双方可以通过此链接访问实时共享的编辑器进行笔试。
+            </div>
+            <div className={styles.description}>
+              面试者笔试结束后，点击『提交』按钮，会将笔试记录分别发送到面试者和面试官邮箱中。
+            </div>
           </div>
           <Form
             className={styles.form}
             labelCol={{
-              span: 8,
+              span: 6,
             }}
             wrapperCol={{
-              span: 16,
+              span: 18,
             }}
             onFinish={submitHandler}
           >
             <Form.Item label="面试者姓名" name="intervieweeName">
-              <Input placeholder="请输入面试者姓名" />
+              <Input placeholder="选填，填写后会在邮件中使用" />
             </Form.Item>
             <Form.Item
-              label="面试者邮箱地址"
+              label="面试者邮箱"
               name="intervieweeEmail"
               rules={[
                 {
                   required: true,
-                  message: '请输入面试者邮箱地址',
+                  message: '请输入面试者邮箱',
                 },
               ]}
             >
-              <Input placeholder="请输入面试者邮箱地址" />
+              <Input placeholder="必填，填写后会发送笔试链接到此邮箱" />
             </Form.Item>
             <Form.Item label="面试官姓名" name="interviewerName">
-              <Input placeholder="请输入面试官姓名" />
+              <Input placeholder="选填，填写后会在邮件中使用" />
             </Form.Item>
-            <Form.Item label="面试官邮箱地址" name="interviewerEmail">
-              <Input placeholder="请输入面试官邮箱地址" />
+            <Form.Item
+              label="面试官邮箱"
+              name="interviewerEmail"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入面试官邮箱',
+                },
+              ]}
+            >
+              <Input placeholder="必填，填写后会发送笔试链接到此邮箱" />
             </Form.Item>
             <Form.Item
               wrapperCol={{
-                offset: 8,
-                span: 16,
+                offset: 6,
+                span: 18,
               }}
             >
-              <Button
-                className={styles.submitButton}
-                htmlType="submit"
-                type="primary"
-              >
-                生成面试链接并发送到邮箱
-              </Button>
+              <div className={styles.buttonContainer}>
+                <Button
+                  onClick={() => {
+                    navigate('/interview-record/list');
+                  }}
+                >
+                  查看笔试记录
+                </Button>
+                <Button
+                  className={styles.submitButton}
+                  htmlType="submit"
+                  type="primary"
+                >
+                  <div className={styles.text}>生成笔试链接并发送到邮箱</div>
+                  <ArrowRightOutlined className={styles.icon} />
+                </Button>
+              </div>
             </Form.Item>
           </Form>
         </div>
       </div>
+      {alertVisible ? (
+        <div className={styles.alertContainer}>
+          <Alert
+            banner
+            closable
+            message={errMsg}
+            type="error"
+            afterClose={() => {
+              setAlertVisible(false);
+            }}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };
