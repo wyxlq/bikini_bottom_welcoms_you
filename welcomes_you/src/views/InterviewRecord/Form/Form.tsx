@@ -34,7 +34,7 @@ const InterviewRoomForm = () => {
       </div>
       <div className={styles.main}>
         <div className={styles.titleContainer}>
-          <div className={styles.title}>BIKINI BOTTOM</div>
+          <div className={styles.title}>Bikini Bottom</div>
           <div className={styles.description}>
             一个<span className={styles.em}> 轻量级 </span>的
             <span className={styles.em}> 实时共享 </span>笔试系统

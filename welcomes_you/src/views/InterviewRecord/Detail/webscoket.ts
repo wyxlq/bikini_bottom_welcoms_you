@@ -5,6 +5,8 @@ const encode = new TextEncoder();
 const decode = new TextDecoder('utf-8');
 
 export const getBuffer = (type: WSTypes, str: string = '') => {
+  console.log(type);
+  console.log(str);
   const arr = encode.encode(str);
   const newBuffer = new Uint8Array(arr.byteLength + 1);
   newBuffer.set(encode.encode(type), 0);

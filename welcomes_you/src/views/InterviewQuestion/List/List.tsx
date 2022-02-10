@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './List.module.scss';
 
-const OralExaminationList = () => {
+const InterviewQuestionList = () => {
   return (
-    <div className={styles['OralExaminationList']}>OralExaminationList</div>
+    <div className={styles['InterviewQuestionList']}>InterviewQuestionList</div>
   );
 };
 
-export default OralExaminationList;
+export default InterviewQuestionList;

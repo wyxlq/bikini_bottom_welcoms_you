@@ -2,10 +2,12 @@ import React from 'react';
 
 import styles from './Detail.module.scss';
 
-const OralExaminationDetail = () => {
+const InterviewQuestionDetail = () => {
   return (
-    <div className={styles['OralExaminationDetail']}>OralExaminationDetail</div>
+    <div className={styles['InterviewQuestionDetail']}>
+      InterviewQuestionDetail
+    </div>
   );
 };
 
-export default OralExaminationDetail;
+export default InterviewQuestionDetail;

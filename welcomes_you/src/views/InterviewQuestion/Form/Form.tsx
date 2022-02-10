@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './Form.module.scss';
 
-const OralExaminationForm = () => {
+const InterviewQuestionForm = () => {
   return (
-    <div className={styles['OralExaminationForm']}>OralExaminationForm</div>
+    <div className={styles['InterviewQuestionForm']}>InterviewQuestionForm</div>
   );
 };
 
-export default OralExaminationForm;
+export default InterviewQuestionForm;
