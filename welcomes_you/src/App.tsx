@@ -13,7 +13,6 @@ const Layout = (props: any) => {
     </React.Fragment>
   );
 };
-
 const rRoute = (routes: BaseRoutes) =>
   routes.map((route, index) => {
     const Component = route.Component || Layout;
@@ -23,7 +22,6 @@ const rRoute = (routes: BaseRoutes) =>
       </Route>
     );
   });
-
 const App = () => {
   return (
     <div className="App">
@@ -31,4 +29,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;

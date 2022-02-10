@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 
 import styles from './Form.module.scss';
 
 const InterviewRoomForm = () => {
-  const [errAlertVisible, setErrAlertVisible] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
   const submitHandler = async (e: any) => {
     const resp = await fetch('/api/createInterview', {
@@ -19,11 +17,10 @@ const InterviewRoomForm = () => {
     });
     const res = await resp.json();
     if (!res.success) {
-      setErrAlertVisible(true);
-      setErrMsg(res.message);
+      message.error(res.message);
     }
     setTimeout(() => {
-      navigate(`/interview-room/detail?id=${res.data}`);
+      navigate(`/interview-record/detail?id=${res.data}`);
     }, 2000);
   };
   return (
@@ -72,7 +69,10 @@ const InterviewRoomForm = () => {
                 },
               ]}
             >
-              <Input placeholder="必填，填写后会发送笔试链接到此邮箱" />
+              <Input
+                placeholder="必填，填写后会发送笔试链接到此邮箱"
+                type="email"
+              />
             </Form.Item>
             <Form.Item label="面试官姓名" name="interviewerName">
               <Input placeholder="选填，填写后会在邮件中使用" />
@@ -87,7 +87,10 @@ const InterviewRoomForm = () => {
                 },
               ]}
             >
-              <Input placeholder="必填，填写后会发送笔试链接到此邮箱" />
+              <Input
+                placeholder="必填，填写后会发送笔试链接到此邮箱"
+                type="email"
+              />
             </Form.Item>
             <Form.Item
               wrapperCol={{
@@ -116,19 +119,6 @@ const InterviewRoomForm = () => {
           </Form>
         </div>
       </div>
-      {errAlertVisible ? (
-        <div className={styles.alertContainer}>
-          <Alert
-            banner
-            closable
-            message={errMsg}
-            type="error"
-            afterClose={() => {
-              setErrAlertVisible(false);
-            }}
-          />
-        </div>
-      ) : null}
     </div>
   );
 };

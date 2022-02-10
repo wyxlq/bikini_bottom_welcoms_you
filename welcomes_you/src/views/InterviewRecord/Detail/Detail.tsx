@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import * as monaco from 'monaco-editor';
 import { WSTypes } from './constants';
 import { getBuffer, useCodeFromRemote, useWebSocket } from './webscoket';
@@ -14,8 +14,7 @@ function useQuery() {
 }
 
 const InterviewRoomDetail = () => {
-  const [errAlertVisible, setErrAlertVisible] = useState(false);
-  const [errMsg, setErrMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRoot = useRef<HTMLDivElement>(null);
   const edtorInstance = useRef<monaco.editor.ITextModel | null>(null);
   const query = useQuery();
@@ -55,6 +54,10 @@ const InterviewRoomDetail = () => {
     }
   }, [code]);
   const submitHandler = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     const resp = await fetch('/api/updateInterview', {
       method: 'POST',
       headers: {
@@ -62,15 +65,16 @@ const InterviewRoomDetail = () => {
       },
       body: JSON.stringify({
         id: query.get('id'),
-        value: code,
+        value: edtorInstance.current?.getLinesContent().join('\n'),
       }),
     });
     const res = await resp.json();
     if (!res.success) {
-      setErrAlertVisible(true);
-      setErrMsg(res.message);
+      message.error(res.message);
     } else {
+      message.success('提交成功');
     }
+    setIsSubmitting(false);
   };
   return (
     <div className={styles['InterviewRoomDetail']}>
@@ -83,7 +87,7 @@ const InterviewRoomDetail = () => {
           <div className={styles.editor} ref={editorRoot} />
         </div>
         <div className={styles.buttonContainer}>
-          <Button type="primary" onClick={submitHandler}>
+          <Button loading={isSubmitting} type="primary" onClick={submitHandler}>
             提交
           </Button>
         </div>

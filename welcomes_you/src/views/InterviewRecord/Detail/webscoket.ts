@@ -2,11 +2,8 @@ import { useEffect, useState } from 'react';
 import { WSTypes } from './constants';
 
 const encode = new TextEncoder();
-const decode = new TextDecoder('utf-8');
 
 export const getBuffer = (type: WSTypes, str: string = '') => {
-  console.log(type);
-  console.log(str);
   const arr = encode.encode(str);
   const newBuffer = new Uint8Array(arr.byteLength + 1);
   newBuffer.set(encode.encode(type), 0);
@@ -20,19 +17,15 @@ export const useWebSocket = (id: string) => {
     const socket = new WebSocket(
       `ws://172.18.68.4:7000/api/ws/interview?id=${id}`
     );
-
     setSocket(socket);
-
-    socket.addEventListener('open', function (event) {
+    socket.addEventListener('open', function () {
       socket.send(getBuffer(WSTypes.getValue));
     });
-
     const intervalTimer = setInterval(() => {
       if (socket.readyState === WebSocket.OPEN) {
         socket.send(getBuffer(WSTypes.heartbeat));
       }
     }, 5000);
-
     return () => {
       socket.close();
       clearInterval(intervalTimer);
@@ -40,7 +33,6 @@ export const useWebSocket = (id: string) => {
   }, [id]);
   return socketinstane;
 };
-
 export const useCodeFromRemote = (socket?: WebSocket) => {
   const [code, setCode] = useState('');
   useEffect(() => {
@@ -49,7 +41,6 @@ export const useCodeFromRemote = (socket?: WebSocket) => {
         if (!(e.data instanceof Blob)) {
           return;
         }
-
         const text = await e.data.text();
         const type = text[0];
         if (type === WSTypes.getValue) {

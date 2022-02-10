@@ -42,7 +42,7 @@ export const readInterviews: RequestHandler = (req, res) => {
   const interviews = Object.keys(interviewDict).map(
     interviewId => interviewDict[interviewId]
   );
-  res.send({
+  res.sendData({
     data: interviews,
   });
 };
@@ -131,7 +131,7 @@ export const updateInterview: RequestHandler<
   if (typeof id === 'string') {
     if (interviewDict[id]) {
       interviewDict[id].value = value;
-      res.send({
+      res.sendData({
         data: id,
       });
     } else {
@@ -161,7 +161,6 @@ enum WSTypes {
   setValue = '0',
   getValue = '1',
 }
-
 const getBuffer = (type: WSTypes, str: string) => {
   const arr = encode.encode(str);
   const newBuffer = new Uint8Array(arr.byteLength + 1);
@@ -169,6 +168,7 @@ const getBuffer = (type: WSTypes, str: string) => {
   newBuffer.set(arr, 1);
   return newBuffer;
 };
+
 export const interviewWebSocket: expressWs.WebsocketRequestHandler = (
   ws: IWebSocket,
   req
