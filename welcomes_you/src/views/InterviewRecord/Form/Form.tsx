@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
 import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
@@ -7,7 +7,9 @@ import styles from './Form.module.scss';
 
 const InterviewRoomForm = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const submitHandler = async (e: any) => {
+    setIsSubmitting(true);
     const resp = await fetch('/api/createInterview', {
       method: 'POST',
       headers: {
@@ -20,6 +22,7 @@ const InterviewRoomForm = () => {
       message.error(res.message);
     }
     setTimeout(() => {
+      setIsSubmitting(false);
       navigate(`/interview-record/detail?id=${res.data}`);
     }, 2000);
   };
@@ -109,6 +112,7 @@ const InterviewRoomForm = () => {
                 <Button
                   className={styles.submitButton}
                   htmlType="submit"
+                  loading={isSubmitting}
                   type="primary"
                 >
                   <div className={styles.text}>生成笔试链接并发送到邮箱</div>
