@@ -6,7 +6,7 @@ import ArrowRightOutlined from '@ant-design/icons/ArrowRightOutlined';
 import styles from './Form.module.scss';
 
 const InterviewRoomForm = () => {
-  const [alertVisible, setAlertVisible] = useState(false);
+  const [errAlertVisible, setErrAlertVisible] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
   const submitHandler = async (e: any) => {
@@ -19,7 +19,7 @@ const InterviewRoomForm = () => {
     });
     const res = await resp.json();
     if (!res.success) {
-      setAlertVisible(true);
+      setErrAlertVisible(true);
       setErrMsg(res.message);
     }
     setTimeout(() => {
@@ -116,7 +116,7 @@ const InterviewRoomForm = () => {
           </Form>
         </div>
       </div>
-      {alertVisible ? (
+      {errAlertVisible ? (
         <div className={styles.alertContainer}>
           <Alert
             banner
@@ -124,7 +124,7 @@ const InterviewRoomForm = () => {
             message={errMsg}
             type="error"
             afterClose={() => {
-              setAlertVisible(false);
+              setErrAlertVisible(false);
             }}
           />
         </div>

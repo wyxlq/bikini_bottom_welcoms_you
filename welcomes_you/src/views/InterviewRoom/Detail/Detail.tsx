@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router';
 import { Button } from 'antd';
 import * as monaco from 'monaco-editor';
@@ -6,6 +6,7 @@ import { WSTypes } from './constants';
 import { getBuffer, useCodeFromRemote, useWebSocket } from './webscoket';
 
 import styles from './Detail.module.scss';
+import './Monaco.scss';
 
 function useQuery() {
   const { search } = useLocation();
@@ -13,6 +14,8 @@ function useQuery() {
 }
 
 const InterviewRoomDetail = () => {
+  const [errAlertVisible, setErrAlertVisible] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
   const editorRoot = useRef<HTMLDivElement>(null);
   const edtorInstance = useRef<monaco.editor.ITextModel | null>(null);
   const query = useQuery();
@@ -62,7 +65,12 @@ const InterviewRoomDetail = () => {
         value: code,
       }),
     });
-    console.log(resp);
+    const res = await resp.json();
+    if (!res.success) {
+      setErrAlertVisible(true);
+      setErrMsg(res.message);
+    } else {
+    }
   };
   return (
     <div className={styles['InterviewRoomDetail']}>
@@ -71,20 +79,13 @@ const InterviewRoomDetail = () => {
         <div className={styles.bottom}></div>
       </div>
       <div className={styles.main}>
-        <div className={styles.titleContainer}>
-          <div className={styles.title}>BIKINI BOTTOM</div>
-          <div className={styles.description}>
-            一个<span className={styles.em}> 轻量级 </span>的
-            <span className={styles.em}> 实时共享 </span>笔试系统
-          </div>
-        </div>
         <div className={styles.editorContainer}>
           <div className={styles.editor} ref={editorRoot} />
-          <div className={styles.buttonContainer}>
-            <Button type="primary" onClick={submitHandler}>
-              提交
-            </Button>
-          </div>
+        </div>
+        <div className={styles.buttonContainer}>
+          <Button type="primary" onClick={submitHandler}>
+            提交
+          </Button>
         </div>
       </div>
     </div>

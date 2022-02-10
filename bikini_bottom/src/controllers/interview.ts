@@ -37,7 +37,7 @@ interface InterviewDetail {
   interviewerName: string;
   interviewerEmail: string;
 }
-const interviews: Record<string, InterviewDetail> = {};
+const interviewDict: Record<string, InterviewDetail> = {};
 
 export const readInterview: RequestHandler<{
   id: string;
@@ -45,7 +45,7 @@ export const readInterview: RequestHandler<{
   const id = req.query.id;
   if (typeof id === 'string') {
     res.sendData({
-      data: interviews[id],
+      data: interviewDict[id],
     });
   }
   res.sendData({
@@ -53,6 +53,15 @@ export const readInterview: RequestHandler<{
     success: false,
   });
 };
+export const readInterviews: RequestHandler = (req, res) => {
+  const interviews = Object.keys(interviewDict).map(
+    interviewId => interviewDict[interviewId]
+  );
+  res.send({
+    data: interviews,
+  });
+};
+
 export const createInterview: RequestHandler<
   any,
   any,
@@ -79,7 +88,7 @@ export const createInterview: RequestHandler<
     interviewerEmail,
   };
 
-  interviews[detail.id] = detail;
+  interviewDict[detail.id] = detail;
 
   let message: string = '';
   try {
@@ -134,8 +143,8 @@ export const updateInterview: RequestHandler<
 > = (req, res) => {
   const { id, value } = req.body;
   if (id) {
-    if (interviews[id]) {
-      interviews[id].value = value;
+    if (interviewDict[id]) {
+      interviewDict[id].value = value;
       res.send({
         data: id,
       });
@@ -151,8 +160,8 @@ export const updateInterview: RequestHandler<
       success: false,
     });
   }
-  if (id && interviews[id]) {
-    interviews[id].value = value;
+  if (id && interviewDict[id]) {
+    interviewDict[id].value = value;
     res.send({
       data: id,
     });
@@ -178,8 +187,8 @@ export const interviewWebSocket: expressWs.WebsocketRequestHandler = (
         ws.send(getBuffer(WSTypes.heartbeat, id));
         return;
       case encode.encode(WSTypes.setValue)[0]:
-        if (value && interviews[id]) {
-          interviews[id].value = value;
+        if (value && interviewDict[id]) {
+          interviewDict[id].value = value;
           getWsApp()
             ?.getWss()
             ?.clients?.forEach((wsItem: IWebSocket) => {
@@ -191,8 +200,8 @@ export const interviewWebSocket: expressWs.WebsocketRequestHandler = (
         }
         return;
       case encode.encode(WSTypes.getValue)[0]:
-        if (interviews[id]) {
-          ws.send(getBuffer(WSTypes.getValue, interviews[id].value));
+        if (interviewDict[id]) {
+          ws.send(getBuffer(WSTypes.getValue, interviewDict[id].value));
         }
         return;
     }

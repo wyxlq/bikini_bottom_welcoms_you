@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 app.get('/api/readInterview', interview.readInterview);
+app.get('/api/readInterviews', interview.readInterviews);
 app.post('/api/createInterview', interview.createInterview);
 app.post('/api/updateInterview', interview.updateInterview);
 
