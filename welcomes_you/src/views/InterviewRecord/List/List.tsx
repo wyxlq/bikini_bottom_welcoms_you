@@ -76,13 +76,6 @@ const InterviewRecordList = () => {
     }
   }, []);
   useEffect(() => {
-    if (editorRoot.current) {
-      const core = monaco.editor.create(editorRoot.current, {
-        value: '',
-        language: 'javascript',
-      });
-      edtorInstance.current = core?.getModel?.();
-    }
     const instance = edtorInstance.current;
     return () => {
       if (instance) {
@@ -91,6 +84,16 @@ const InterviewRecordList = () => {
     };
   }, []);
   useEffect(() => {
+    if (!edtorInstance.current && editorRoot.current) {
+      const core = monaco.editor.create(editorRoot.current, {
+        value: '',
+        language: 'javascript',
+      });
+      edtorInstance.current = core?.getModel?.();
+    }
+  }, [drawerVisible]);
+  useEffect(() => {
+    console.log(edtorInstance.current);
     if (edtorInstance.current) {
       edtorInstance.current.setValue(activeInterviewValue);
     }
