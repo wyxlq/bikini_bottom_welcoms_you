@@ -39,9 +39,7 @@ export const readInterview: RequestHandler<{
   }
 };
 export const readInterviews: RequestHandler = (req, res) => {
-  const interviews = Object.keys(interviewDict).map(
-    interviewId => interviewDict[interviewId]
-  );
+  const interviews = Object.keys(interviewDict).map(interviewId => interviewDict[interviewId]);
   res.sendData({
     data: interviews,
   });
@@ -56,12 +54,7 @@ export const createInterview: RequestHandler<
     interviewerEmail: string;
   }
 > = async (req, res) => {
-  const {
-    intervieweeName,
-    intervieweeEmail,
-    interviewerName,
-    interviewerEmail,
-  } = req.body;
+  const { intervieweeName, intervieweeEmail, interviewerName, interviewerEmail } = req.body;
   const detail: InterviewDetail = {
     id: uuidv4(),
     createdTime: Date.now(),
@@ -169,10 +162,7 @@ const getBuffer = (type: WSTypes, str: string) => {
   return newBuffer;
 };
 
-export const interviewWebSocket: expressWs.WebsocketRequestHandler = (
-  ws: IWebSocket,
-  req
-) => {
+export const interviewWebSocket: expressWs.WebsocketRequestHandler = (ws: IWebSocket, req) => {
   const id = req.query.id as string;
   ws.interviewId = id;
   ws.uuid = uuidv4();

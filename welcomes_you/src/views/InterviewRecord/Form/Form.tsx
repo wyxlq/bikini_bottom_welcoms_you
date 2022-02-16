@@ -72,10 +72,7 @@ const InterviewRoomForm = () => {
                 },
               ]}
             >
-              <Input
-                placeholder="必填，填写后会发送笔试链接到此邮箱"
-                type="email"
-              />
+              <Input placeholder="必填，填写后会发送笔试链接到此邮箱" type="email" />
             </Form.Item>
             <Form.Item label="面试官姓名" name="interviewerName">
               <Input placeholder="选填，填写后会在邮件中使用" />
@@ -90,10 +87,7 @@ const InterviewRoomForm = () => {
                 },
               ]}
             >
-              <Input
-                placeholder="必填，填写后会发送笔试链接到此邮箱"
-                type="email"
-              />
+              <Input placeholder="必填，填写后会发送笔试链接到此邮箱" type="email" />
             </Form.Item>
             <Form.Item
               wrapperCol={{
