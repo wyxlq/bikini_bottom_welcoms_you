@@ -43,10 +43,10 @@ const InterviewRoomForm = () => {
         <div className={styles.formContainer}>
           <div className={styles.descriptionContainer}>
             <div className={styles.description}>
-              填写完表单后，点击『生成笔试链接并发送到邮箱』按钮，会创建一个临时的笔试链接，分别发送到面试者和面试官邮箱中，双方可以通过此链接访问实时共享的编辑器进行笔试。
+              填写完表单后，点击『生成笔试链接并发送到邮箱』按钮，会新创建一个唯一的笔试链接，分别发送到面试者和面试官邮箱中，双方可以通过此链接访问实时共享的编辑器进行笔试。
             </div>
             <div className={styles.description}>
-              面试者笔试结束后，点击『提交』按钮，会将笔试记录分别发送到面试者和面试官邮箱中。
+              面试者笔试结束后，点击『提交』按钮会生成一条笔试记录，多次点击『提交』按钮只会更新记录中的笔试代码。
             </div>
           </div>
           <Form

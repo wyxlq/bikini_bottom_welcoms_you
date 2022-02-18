@@ -79,7 +79,7 @@ export const createInterview: RequestHandler<
         html:
           `<div>hi，${
             intervieweeName || ''
-          }同学，您好，请点击<a href="http://172.18.68.4:3000/#/interview-record/detail?id=` +
+          }同学，您好，请点击<a href="http://localhost:3000/#/interview-record/detail?id=` +
           detail.id +
           '">链接</a>进入笔试间</div>',
       });
@@ -96,7 +96,7 @@ export const createInterview: RequestHandler<
         html:
           `<div>hi，${
             interviewerName || ''
-          }面试官，您好，请点击<a href="http://172.18.68.4:3000/#/interview-record/detail?id=` +
+          }面试官，您好，请点击<a href="http://localhost:3000/#/interview-record/detail?id=` +
           detail.id +
           '">链接</a>进入笔试间</div>',
       });

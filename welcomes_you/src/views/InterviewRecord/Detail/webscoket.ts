@@ -12,9 +12,9 @@ export const getBuffer = (type: WSTypes, str: string = '') => {
 };
 
 export const useWebSocket = (id: string) => {
-  const [socketinstane, setSocket] = useState<WebSocket>();
+  const [socketInstance, setSocket] = useState<WebSocket>();
   useEffect(() => {
-    const socket = new WebSocket(`ws://172.18.68.4:7000/api/ws/interview?id=${id}`);
+    const socket = new WebSocket(`ws://localhost:7000/api/ws/interview?id=${id}`);
     setSocket(socket);
     socket.addEventListener('open', function () {
       socket.send(getBuffer(WSTypes.getValue));
@@ -29,7 +29,7 @@ export const useWebSocket = (id: string) => {
       clearInterval(intervalTimer);
     };
   }, [id]);
-  return socketinstane;
+  return socketInstance;
 };
 export const useCodeFromRemote = (socket?: WebSocket) => {
   const [code, setCode] = useState('');
